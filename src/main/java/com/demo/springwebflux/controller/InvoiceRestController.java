@@ -3,10 +3,8 @@ package com.demo.springwebflux.controller;
 import com.demo.springwebflux.model.Invoice;
 import com.demo.springwebflux.service.IInvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -17,14 +15,13 @@ public class InvoiceRestController {
     private IInvoiceService service;
 
     @PostMapping("/save")
-    public Invoice saveOneInvoice(@RequestBody Invoice invoice){
+    public Mono<Invoice> saveOneInvoice(@RequestBody Invoice invoice){
         return service.saveInvoice(invoice);
         // for Mono<String>
         // service.saveInvoice(invoice);
         // return Mono.just("Invoice saved" + invoice.getId());
     }
 
-    /*
     @GetMapping("/allInvoices")
     public Flux<Invoice> getAllInvoices(){
         return service.findAllInvoices();
@@ -40,6 +37,6 @@ public class InvoiceRestController {
     public Mono<String> deleteInvoice(@PathVariable Integer id){
         service.deleteInvoice(id);
         return Mono.just("Invoice with id: " +id+ " deleted !");
-    }*/
+    }
 
 }

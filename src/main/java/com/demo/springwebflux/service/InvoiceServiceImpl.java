@@ -4,6 +4,7 @@ import com.demo.springwebflux.model.Invoice;
 import com.demo.springwebflux.repo.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -12,11 +13,10 @@ public class InvoiceServiceImpl implements IInvoiceService {
     @Autowired
     private InvoiceRepository repo;
 
-    public Invoice saveInvoice(Invoice invoice){
+    public Mono<Invoice> saveInvoice(Invoice invoice){
         return repo.save(invoice);
     }
 
-    /*
     public Flux<Invoice> findAllInvoices(){
         //return repo.findAll();
         return repo.findAll().switchIfEmpty(Flux.empty());
@@ -28,6 +28,6 @@ public class InvoiceServiceImpl implements IInvoiceService {
 
     public Mono<Void> deleteInvoice(Integer id){
         return repo.deleteById(id);
-    }*/
+    }
 
 }
